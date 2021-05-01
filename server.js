@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const messages = require('./data');
+const messages = require('./data.js');
 
 //This array is our "data store".
 //We will start with one message in the array.
