@@ -47,13 +47,25 @@ app.get('/message/:id', function (req, res) {
 //delete
 app.delete('/message/:id', function (req, res) {
   const index = messages.findIndex((message) => message.id == req.params.id);
-  if (index === 1) {
+  if (index !== -1) {
     messages.splice(index);
     res.send(messages);
   } else {
     res.send("It doesn't exist!!!");
   }
 });
+
+app.get('/message/search/:text', function (req, res) {
+  const singleMessage = messages.filter(
+    (message) => Object.values(message).indexOf(req.params.text) !== -1
+  );
+  res.send(singleMessage);
+});
+
+const happy = messages.sort(function (x, y) {
+  return x.timestamp - y.timestamp;
+});
+console.log(happy);
 
 app.listen(process.env.PORT || 8080, () => {
   console.log('Server is working');
